@@ -1,0 +1,158 @@
+   body {
+      margin: 0px;
+      padding: 0px;
+      background-color: #1b203d;
+      
+      overflow: hidden;
+      font-family: system-ui;
+    }
+
+    .clearfix {
+      clear: both;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 300px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #272c4a;
+      overflow: hidden;
+      transition: 0.5s;
+      padding-top: 30px;
+    }
+
+    .dropdown-btn {
+      padding: 15px 8px 15px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      background-color: #272c4a;
+      border: none;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .dropdown-btn:hover {
+      background-color: #1b203d;
+      color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    .sidenav a {
+      padding: 15px 8px 15px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+      background-color: #1b203d;
+      cursor: pointer;
+    }
+
+    .sidenav {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+    }
+
+    .sidenav a:active,
+    .dropdown-btn:active,
+    .dropdown-content a:active {
+      color: #f1f1f1;
+      background-color: #1b203d;
+    }
+
+    .dropdown-content {
+      display: none;
+      background-color: #272c4a;
+      padding-left: 8px;
+    }
+
+    .dropdown:hover .dropdown-content:hover {
+      cursor: pointer;
+      /*display: block;*/
+    }
+
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+      margin-left: 300px;
+    }
+
+    .head {
+      padding: 5px;
+    }
+
+    .page {
+      padding: 20px;
+      background-color: white;
+      height: 100vh;
+
+    }
+
+    .col-div-6 {
+      width: 50%;
+      float: left;
+    }
+    
+    .nav2 {
+      display: none;
+    }
+
+    .show_icons {
+      display: block;
+    }
+
+    @keyframes fill {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(126deg);
+      }
+    }
+
+    .downLink {
+      margin-left: 15%;
+    }
+
+    .logo {
+      display: block;
+      width: 50%;
+      margin: 30px auto;
+      box-shadow: 0 5px 10px -7px #333333;
+      border-radius: 50%;
+    }
+    
+.profile{
+	float: right;
+	width: 160px;
+  
+}
+.pro-img{
+	float: left;
+	width: 40px;
+	margin-top: 5px;
+}
+.profile p{
+	color: white;
+	font-weight: 500;
+	margin-left: 55px;
+	margin-top: 10px;
+	font-size: 13.5px;
+}
+.profile p span{
+	font-weight: 400;
+    font-size: 12px;
+    display: block;
+    color: #8e8b8b;
+}

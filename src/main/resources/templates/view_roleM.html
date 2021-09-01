@@ -1,0 +1,69 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <style>
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+
+        body {
+            background-color: #ffffff;
+        }
+            div.container {
+                width: 80%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+        
+    }
+    div.title{
+        text-align: center;
+            font-weight: 500;
+            padding-top: 5%;
+    }
+        </style>
+    </head>
+<body>
+    
+    <div class="title">
+        <h1>List of Roles</h1>
+    </div>
+<div class="container">
+    
+    
+<table id="role_table" class="table" style="width:100%">
+    <thead>
+        <tr>
+            <th scope="col">Role</th>
+            <th scope="col">Landing Page</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${role1}">
+            <td><span th:text="${c.role_name}"></span></td>
+            <td><span th:text="${c.landing_page}"></span></td>
+            <td>
+            <span th:if="${c.active==0}">Active</span>
+            <span th:unless="${c.active==0}">Inactive</span>
+            </td>
+            <td>&nbsp;&nbsp;&nbsp;<a th:href="@{'/edit1/'+${c.id}}"><i class="fas fa-pen" title="Edit Roles"></i></a>&nbsp;&nbsp;&nbsp;<a  th:href="@{'/delete/'+${c.id}}"><i class="fas fa-trash" title="Delete"></i></a></td>
+        </tr>
+       
+    </tbody>
+   
+</table>
+</div>
+
+</body>
+</html> 

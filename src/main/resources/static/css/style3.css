@@ -1,0 +1,86 @@
+   * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #e2dede;
+    }
+
+    .center {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    img {
+      display: block;
+      width: 25%;
+      margin: 30px auto;
+      box-shadow: 0 5px 10px -7px #333333;
+      border-radius: 50%;
+    }
+
+    img:hover {
+      transform: translate(0, -7px);
+      box-shadow: 2px 4px 3px 2px grey;
+    }
+
+    .form {
+      background-color: #ffffff;
+      width: 500px;
+      margin: 50px auto 10px auto;
+      padding: 30px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px -3px #333;
+      text-align: center;
+      display: block;
+    }
+
+    input {
+      border-radius: 100px;
+      padding: 10px 15px;
+      width: 60%;
+      border: 1px solid #D9D9D9;
+      outline: none;
+      display: block;
+      margin: 2px auto 20px auto;
+      box-shadow: 0 2px 10px -3px #333;
+    }
+
+    input:hover {
+      border-color: #000000;
+      box-shadow: none;
+    }
+
+    button {
+      border-radius: 100px;
+      border: none;
+      background-color: #53ac53;
+      background: linear-gradient(to bottom, #58b358 0%, #449944 100%);
+      box-shadow: 2px 2px darkgreen;
+      width: 50%;
+      padding: 10px;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 25px;
+      box-shadow: 0 2px 10px -3px #138537;
+      display: block;
+      margin: 15px auto 10px auto;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+
+    button:active {
+      box-shadow: none;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 500;
+    }

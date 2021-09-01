@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<link rel="stylesheet" th:href="@{/css/style2.css}">
+</head>
+
+<body>
+    <div class="center">
+        <div class="form">
+            <h1>Forgot Password?</h1>
+            <h5>Enter Your Registered Email To Reset Your Password.</h5>
+            <input type="email" name="email" placeholder="Email" />
+            <button id="btn"><a href="/" th:href="@{/reset}">Reset Password</a></button>
+            <h6>--OR--</h6>
+            <a href="">Sign In</a>
+        </div>
+    </div>
+</body>
+
+</html>

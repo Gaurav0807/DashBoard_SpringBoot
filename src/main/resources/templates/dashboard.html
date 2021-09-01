@@ -1,0 +1,302 @@
+<!Doctype HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      background-color: #1b203d;
+      
+      overflow: hidden;
+      font-family: system-ui;
+    }
+
+    .clearfix {
+      clear: both;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 300px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #272c4a;
+      overflow: hidden;
+      transition: 0.5s;
+      padding-top: 30px;
+    }
+
+    .dropdown-btn {
+      padding: 15px 8px 15px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      background-color: #272c4a;
+      border: none;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .dropdown-btn:hover {
+      background-color: #1b203d;
+      color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    .sidenav a {
+      padding: 15px 8px 15px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+      background-color: #1b203d;
+      cursor: pointer;
+    }
+
+    .sidenav {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+    }
+
+    .sidenav a:active,
+    .dropdown-btn:active,
+    .dropdown-content a:active {
+      color: #f1f1f1;
+      background-color: #1b203d;
+    }
+
+    .dropdown-content {
+      display: none;
+      background-color: #272c4a;
+      padding-left: 8px;
+    }
+
+    .dropdown:hover .dropdown-content:hover {
+      cursor: pointer;
+      /*display: block;*/
+    }
+
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+      margin-left: 300px;
+    }
+
+    .head {
+      padding: 5px;
+    }
+
+    .page {
+      padding: 20px;
+      background-color: white;
+      height: 100vh;
+
+    }
+
+    .col-div-6 {
+      width: 50%;
+      float: left;
+    }
+    
+    .nav2 {
+      display: none;
+    }
+
+    .show_icons {
+      display: block;
+    }
+
+    @keyframes fill {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(126deg);
+      }
+    }
+
+    .downLink {
+      margin-left: 15%;
+    }
+
+    .logo {
+      display: block;
+      width: 50%;
+      margin: 30px auto;
+      box-shadow: 0 5px 10px -7px #333333;
+      border-radius: 50%;
+    }
+    
+.profile{
+	float: right;
+	width: auto;
+  
+}
+.pro-img{
+	float: left;
+	width: 40px;
+	margin-top: 5px;
+}
+.profile p{
+	color: white;
+	font-weight: 500;
+	margin-left: 55px;
+	margin-top: 10px;
+	font-size: 13.5px;
+}
+.profile p span{
+	font-weight: 400;
+    font-size: 12px;
+    display: block;
+    color: #8e8b8b;
+}
+  </style>
+</head>
+
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <img src="https://image.flaticon.com/icons/png/512/1946/1946429.png" class="logo"/>
+    <a href="dashboard.html" th:href="@{/dashboard}"  class="icon-a"><i class="fas fa-home icons"></i>&nbsp;&nbsp;&nbsp;Dashboard</a>
+    <div class="dropdown">
+      <a class="icon-a dropdown-btn" onclick="reveal1()"><i class="fas fa-users icons"></i>&nbsp;&nbsp;&nbsp;User Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+      <div class="dropdown-content toggle1">
+        <a id="load_add_user" th:href="@{/add_user}"  class="downLink icon-b"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          User</a>
+        <a id="load_view_user" th:href="@{/view_user}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View Users</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a class="icon-a dropdown-btn" onclick="reveal2()"><i class="fas fa-user-tag icons"></i>&nbsp;&nbsp;&nbsp;Role Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+      <div class="dropdown-content toggle2">
+        <a id="load_add_role" th:href="@{/roleMaster}"  class="downLink icon-b"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          Role</a>
+        <a id="load_role_rights" onclick="load_rights()" class="downLink icon-b"><i
+            class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;Role Rights</a>
+            <a id="load_view_role" th:href="@{/viewRoleMaster}"  class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View Roles</a>
+      </div>
+    </div>
+
+    <a href="#" class="icon-a"><i class="fas fa-cogs icons"></i>&nbsp;&nbsp;&nbsp;Settings</a>
+    <a th:href="@{/logout}"sec:authorize ="isAuthenticated()" class="icon-a"><i class="fas fa-sign-out-alt icons"></i>&nbsp;&nbsp;&nbsp;Sign Out</a>
+
+  </div>
+
+  <div id="main">
+
+    <div class="head">
+      <div class="col-div-6">
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+        <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+      </div>
+      <div class="col-div-6">
+        <div class="profile">
+          
+          <img src="images/user.png" class="pro-img" />
+          <p>Welcome <span sec:authentication="principal.username"> User</span><span>Admin</span></p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+    
+    
+  
+    
+     <div class="page" id="div1"></div>
+    
+
+    <div class="clearfix"></div>
+  </div>
+
+
+  <script>
+    $(".nav").click(function () {
+      $("#mySidenav").css('width', '80px');
+      $("#main").css('margin-left', '80px');
+
+      $(".icon-a").css('visibility', 'hidden');
+      $(".icon-b").css('visibility', 'hidden');
+      $(".icons").css('visibility', 'visible');
+      $(".icons").css('margin-left', '-8px');
+      $(".nav").css('display', 'none');
+      $(".nav2").css('display', 'block');
+    });
+
+    $(".nav2").click(function () {
+      $("#mySidenav").css('width', '300px');
+      $("#main").css('margin-left', '300px');
+
+      $(".icon-a").css('visibility', 'visible');
+      $(".icon-b").css('visibility', 'visible');
+      $(".icons").css('visibility', 'visible');
+      $(".nav").css('display', 'block');
+      $(".nav2").css('display', 'none');
+    });
+    
+
+
+    function load_user() {
+      document.getElementById("div1").innerHTML = '<iframe th:href="@{/add_user}" style="width:100%; height:100%; overflow: hidden; border:none;"  seamless="seamless"></iframe>';
+    }
+    function view_user() {
+      document.getElementById("div1").innerHTML = '<iframe src="User/view_user.html" style="width:100%; height:100%; overflow: hidden; border:none;"  seamless="seamless"></iframe>';
+    }
+    function load_role() {
+      document.getElementById("div1").innerHTML = '<iframe src="Role/add_role.html" style="width:100%; height:100%; overflow: hidden; border:none;" scrolling="no"  seamless="seamless"></iframe>';
+    }
+    function load_rights() {
+      document.getElementById("div1").innerHTML = '<iframe src="Role/role_rights.html" style="width:100%; height:100%; overflow: hidden; border:none;" scrolling="no"  seamless="seamless"></iframe>';
+    }
+    function view_role() {
+      document.getElementById("div1").innerHTML = '<iframe src="Role/view_role.html" style="width:100%; height:100%; overflow: hidden; border:none;"  seamless="seamless"></iframe>';
+    }
+
+    function reveal1() {
+      var x = document.querySelector(".toggle1").style;
+      if (x.display == 'none' || x.display == '') {
+        x.display = 'block';
+      } else {
+        x.display = 'none';
+      }
+    }
+
+    function reveal2() {
+      var x = document.querySelector(".toggle2").style;
+      if (x.display == 'none' || x.display == '') {
+        x.display = 'block';
+      } else {
+        x.display = 'none';
+      }
+    }
+
+
+  </script>
+
+</body>
+
+
+</html>
