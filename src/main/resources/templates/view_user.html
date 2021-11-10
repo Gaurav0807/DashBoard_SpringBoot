@@ -1,47 +1,198 @@
 <!Doctype HTML>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-        <style>
-            * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+<html xmlns:th="https://www.thymeleaf.org/" >
 
-        body {
-            background-color: #ffffff;
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+ 
+
+    <style>
+        #table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
         }
-            div.container {
-                width: 80%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -60%);
         
-    }
-    div.title{
-        text-align: center;
-            font-weight: 500;
-            padding-top: 5%;
-    }
-        </style>
-    </head>
+        #table td,
+        #table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        
+        #table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        #table tr:hover {
+            background-color: #ddd;
+        }
+        
+        #table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+        }
+        
+        .pagination {
+            background: #333;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        
+        #numbers {
+            padding: 0;
+            margin: 0 2rem;
+            list-style-type: none;
+            display: flex;
+        }
+        
+        #numbers li a {
+            color: #fff;
+            padding: .5rem 1rem;
+            text-decoration: none;
+            opacity: .7;
+        }
+        
+        #numbers li a:hover {
+            opacity: 1;
+        }
+        
+        #numbers li a.active {
+            opacity: 1;
+            background: #fff;
+            color: #333;
+        }
+        
+        .focus {
+            background-color: #ff00ff;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .selected {
+            background-color: #ff00ff;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .asc:after {
+            content: "\25B2";
+        }
+        
+        .desc:after {
+            content: "\25BC";
+        }
+        
+        input {
+            float: right;
+            height: 25px;
+            width: 200px;
+        }
+        
+        .pagination li:hover {
+            cursor: pointer;
+        }
+    </style>
+
+
+
+
+</head>
+
+
 <body>
-    
-    <div class="title">
-        <h1>List of Users</h1>
+
+    <div id="mySidenav" class="sidenav">
+        <img src="https://image.flaticon.com/icons/png/512/1946/1946429.png" class="logo" />
+        <a href="dashboard.html"  th:href="@{/dashboard}" class="icon-a"><i class="fas fa-home icons"></i>&nbsp;&nbsp;&nbsp;Dashboard</a>
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal1()"><i class="fas fa-users icons"></i>&nbsp;&nbsp;&nbsp;User Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+            <div class="dropdown-content toggle1 submenu-collapse">
+                <a href="add_user.html" th:href="@{/add_user}" class="downLink icon-b"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          User</a>
+                <a href="view_user.html"  th:href="@{/view_user}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+            Users</a>
+
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal2()"><i class="fas fa-user-tag icons"></i>&nbsp;&nbsp;&nbsp;Role Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+            <div class="dropdown-content toggle2 submenu-collapse">
+                <a href="add_role.html" th:href="@{/roleMaster}" class="downLink icon-b"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          Role</a>
+                <a href="role_rights.html" class="downLink icon-b"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;Role Rights</a>
+
+                <a href="view_role.html" th:href="@{/viewRoleMaster}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+            Roles</a>
+            </div>
+        </div>
+        
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal3()"><i class="fab fa-product-hunt"></i>&nbsp;&nbsp;&nbsp;Product Master
+    <i class="fa fa-caret-down"></i>
+  </a>
+            <div class="dropdown-content toggle3 submenu-collapse">
+                <a href="add_product.html" th:href="@{/add_product}"  class="downLink icon-b"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Add
+      Product</a>
+                <a href="view_product.html" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+        Products</a>
+
+ <a href="view_product.html" th:href="@{/addCategory}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;Category</a>
+        
+       <a href="view_product.html" th:href="@{/subcategory}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;Sub-Category</a>
+
+
+            </div>
+        </div>
+
+        <a href="#" class="icon-a"><i class="fas fa-cogs icons"></i>&nbsp;&nbsp;&nbsp;Settings</a>
+        <a th:href="@{/logout}"sec:authorize ="isAuthenticated()" class="icon-a"><i class="fas fa-sign-out-alt icons"></i>&nbsp;&nbsp;&nbsp;Sign Out</a>
+
     </div>
-<div class="container">
-    
-    
-<table id="user_table" class="table" style="width:100%">
-    <thead>
+
+    <div id="main">
+
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+            </div>
+            <div class="col-div-6">
+                <div class="profile">
+
+                    <img src="images/user.png" class="pro-img" />
+                    <p>Welcome <span sec:authentication="principal.username"> User</span><span>Admin</span></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+        <div class="page" id="div1">
+            <div class="title">
+                <h1>List of Roles</h1>
+            </div>
+            <div class="container">
+                <input id="myInput" type="text" placeholder="Search.." style="width: 20%; float: right; padding: 0px;">
+
+                <br/><br/>
+                
+                
+                <table id="user_table" class="display paginated-table" style="width:100%">
+   <thead>
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Username</th>
@@ -73,9 +224,171 @@
            <td>&nbsp;&nbsp;&nbsp;<a th:href="@{'/edit/'+${c.id}}"><i class="fas fa-edit" title="Edit"></i></a>&nbsp;&nbsp;&nbsp;<a th:href="@{'/'+${c.id}}"><i class="fas fa-trash" title="Delete"></i></a></td>
         </tr>
     </tbody>
-   
 </table>
-</div>
+                
+                
+             
+                
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script>
+        $(".nav").click(function() {
+            $("#mySidenav").css('width', '0px');
+            $("#main").css('margin-left', '0px');
+
+            $(".icon-a").css('visibility', 'hidden');
+            $(".icon-b").css('visibility', 'hidden');
+            $(".icons").css('visibility', 'visible');
+            $(".icons").css('margin-left', '-8px');
+            $(".nav").css('display', 'none');
+            $(".nav2").css('display', 'block');
+        });
+
+        $(".nav2").click(function() {
+            $("#mySidenav").css('width', '300px');
+            $("#main").css('margin-left', '300px');
+
+            $(".icon-a").css('visibility', 'visible');
+            $(".icon-b").css('visibility', 'visible');
+            $(".icons").css('visibility', 'visible');
+            $(".nav").css('display', 'block');
+            $(".nav2").css('display', 'none');
+        });
+
+
+        function reveal1() {
+            var x = document.querySelector(".toggle1").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+
+        function reveal2() {
+            var x = document.querySelector(".toggle2").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+
+        function reveal3() {
+            var x = document.querySelector(".toggle3").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+
+
+
+        $(document).ready(function() {
+            $('th').each(function(col) {
+                $(this).hover(
+                    function() {
+                        $(this).addClass('focus');
+                    },
+                    function() {
+                        $(this).removeClass('focus');
+                    }
+                );
+                $(this).click(function() {
+                    if ($(this).is('.asc')) {
+                        $(this).removeClass('asc');
+                        $(this).addClass('desc selected');
+                        sortOrder = -1;
+                    } else {
+                        $(this).addClass('asc selected');
+                        $(this).removeClass('desc');
+                        sortOrder = 1;
+                    }
+                    $(this).siblings().removeClass('asc selected');
+                    $(this).siblings().removeClass('desc selected');
+                    var arrData = $('table').find('tbody >tr:has(td)').get();
+                    arrData.sort(function(a, b) {
+                        var val1 = $(a).children('td').eq(col).text().toUpperCase();
+                        var val2 = $(b).children('td').eq(col).text().toUpperCase();
+                        if ($.isNumeric(val1) && $.isNumeric(val2))
+                            return sortOrder == 1 ? val1 - val2 : val2 - val1;
+                        else
+                            return (val1 < val2) ? -sortOrder : (val1 > val2) ? sortOrder : 0;
+                    });
+                    $.each(arrData, function(index, row) {
+                        $('tbody').append(row);
+                    });
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        $(function() {
+            const rowsPerPage = 5;
+            const rows = $('#table tbody tr');
+            const rowsCount = rows.length;
+            const pageCount = Math.ceil(rowsCount / rowsPerPage); // avoid decimals
+            const numbers = $('#numbers');
+
+            // Generate the pagination.
+            for (var i = 0; i < pageCount; i++) {
+                numbers.append('<li><a href="#">' + (i + 1) + '</a></li>');
+            }
+
+            // Mark the first page link as active.
+            $('#numbers li:first-child a').addClass('active');
+
+            // Display the first set of rows.
+            displayRows(1);
+
+            // On pagination click.
+            $('#numbers li a').click(function(e) {
+                var $this = $(this);
+
+                e.preventDefault();
+
+                // Remove the active class from the links.
+                $('#numbers li a').removeClass('active');
+
+                // Add the active class to the current link.
+                $this.addClass('active');
+
+                // Show the rows corresponding to the clicked page ID.
+                displayRows($this.text());
+            });
+
+            // Function that displays rows for a specific page.
+            function displayRows(index) {
+                var start = (index - 1) * rowsPerPage;
+                var end = start + rowsPerPage;
+
+                // Hide all rows.
+                rows.hide();
+
+                // Show the proper rows for this page.
+                rows.slice(start, end).show();
+            }
+        });
+    </script>
 
 </body>
+
+
 </html>

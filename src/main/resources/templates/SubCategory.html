@@ -1,0 +1,176 @@
+<!Doctype HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" >
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+</head>
+
+
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <img src="https://image.flaticon.com/icons/png/512/1946/1946429.png" class="logo" />
+        <a href="dashboard.html" th:href="@{/dashboard}" class="icon-a"><i class="fas fa-home icons"></i>&nbsp;&nbsp;&nbsp;Dashboard</a>
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal1()"><i class="fas fa-users icons"></i>&nbsp;&nbsp;&nbsp;User Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+            <div class="dropdown-content toggle1 submenu-collapse">
+                <a href="add_user.html" th:href="@{/add_user}" class="downLink icon-b"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          User</a>
+                <a href="view_user.html" th:href="@{/view_user}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+            Users</a>
+
+
+            </div>
+        </div>
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal2()"><i class="fas fa-user-tag icons"></i>&nbsp;&nbsp;&nbsp;Role Master
+        <i class="fa fa-caret-down"></i>
+      </a>
+            <div class="dropdown-content toggle2 submenu-collapse">
+                <a href="add_role.html" th:href="@{/roleMaster}" class="downLink icon-b"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Add
+          Role</a>
+                <a href="role_rights.html" class="downLink icon-b"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;Role Rights</a>
+
+                <a href="view_role.html" th:href="@{/viewRoleMaster}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+            Roles</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a class="icon-a dropdown-btn" onclick="reveal3()"><i class="fab fa-product-hunt"></i>&nbsp;&nbsp;&nbsp;Product Master
+    <i class="fa fa-caret-down"></i>
+  </a>
+            <div class="dropdown-content toggle3 submenu-collapse">
+                <a href="add_product.html" th:href="@{/add_product}" class="downLink icon-b"><i class="fas fa-plus"></i>&nbsp;&nbsp;&nbsp;Add
+      Product</a>
+                <a href="view_product.html" th:href="@{/subcategory}" class="downLink icon-b"><i class="fas fa-table"></i>&nbsp;&nbsp;&nbsp;View
+        Products</a>
+
+
+            </div>
+        </div>
+
+        <a href="#" class="icon-a"><i class="fas fa-cogs icons"></i>&nbsp;&nbsp;&nbsp;Settings</a>
+        <a th:href="@{/logout}"sec:authorize ="isAuthenticated()" class="icon-a"><i class="fas fa-sign-out-alt icons"></i>&nbsp;&nbsp;&nbsp;Sign Out</a>
+
+    </div>
+
+    <div id="main">
+
+        <div class="head">
+            <div class="col-div-6">
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav">&#9776; Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: white;" class="nav2">&#9776; Dashboard</span>
+            </div>
+            <div class="col-div-6">
+                <div class="profile">
+
+                    <img src="images/user.png" class="pro-img" />
+                    <p>Welcome <span sec:authentication="principal.username"> User</span><span>Admin</span></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+        <div class="page" id="div1">
+            <form th:href="@{/sub_category1}" method="POST" th:object="${subcategory}">
+
+                <div class="form">
+                    <h1>Add Sub-Category</h1>
+                  <!--  <div class="select">
+                        <select name="category" id="select" required>
+                        <option>Select Category</option>
+                        <option value="winter">Winter Collection</option>
+                        <option value="summer">Summer Collection</option>
+                        <option value="festive">Festive Collection</option>
+                        </select>
+                    </div>-->
+                    <input type="text" name="sub-category" placeholder="Sub-Category Name" th:field="*{subCategoryName}" required/>
+
+
+
+                    <div class="select">
+                        <select name="status" id="select" th:field="*{active}">
+                <option th:value="0">Active</option>
+                <option th:value="1">Inactive</option>
+              			</select>
+                    </div>
+                    <button id="btn" type="submit">Submit</button>
+                    <a id="btncancel" href="dashboard.html" th:href="@{/dashboard}" style="float: right;">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+    <script>
+        $(".nav").click(function() {
+            $("#mySidenav").css('width', '0px');
+            $("#main").css('margin-left', '0px');
+
+            $(".icon-a").css('visibility', 'hidden');
+            $(".icon-b").css('visibility', 'hidden');
+            $(".icons").css('visibility', 'visible');
+            $(".icons").css('margin-left', '-8px');
+            $(".nav").css('display', 'none');
+            $(".nav2").css('display', 'block');
+        });
+
+        $(".nav2").click(function() {
+            $("#mySidenav").css('width', '300px');
+            $("#main").css('margin-left', '300px');
+
+            $(".icon-a").css('visibility', 'visible');
+            $(".icon-b").css('visibility', 'visible');
+            $(".icons").css('visibility', 'visible');
+            $(".nav").css('display', 'block');
+            $(".nav2").css('display', 'none');
+        });
+
+
+        function reveal1() {
+            var x = document.querySelector(".toggle1").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+
+        function reveal2() {
+            var x = document.querySelector(".toggle2").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+
+        function reveal3() {
+            var x = document.querySelector(".toggle3").style;
+            if (x.display == 'none' || x.display == '') {
+                x.display = 'block';
+            } else {
+                x.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+
+
+</html>

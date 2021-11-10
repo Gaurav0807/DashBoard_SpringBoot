@@ -96,4 +96,12 @@ public class UserController {
 		return "dashboard";
 	}
 	
+	@GetMapping("/add_product")
+	public String addProduct()
+	{
+		return "add_product";
+	}
+	
+	
+	
 }
